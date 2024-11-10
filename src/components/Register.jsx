@@ -1,6 +1,12 @@
+/* eslint-disable no-unused-vars */
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider.jsx";
+import auth from "../Firebase/Firebase.init.jsx";
 
 const Register = () => {
+    const {createUser} = useContext(AuthContext)
+    console.log(createUser);
 
 
     const handleRegister = (e) => {
@@ -9,6 +15,14 @@ const Register = () => {
         const password = e.target.password.value;
         const name = e.target.name.value;
         console.log(email, password);
+
+        createUser(email, password)
+        .then(res=>{
+            console.log(res.user);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
       };
     
 
