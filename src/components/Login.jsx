@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider.jsx";
 
 const Login = () => {
-    const {userLogin} = useContext(AuthContext)
+    const {userLogin, loginWithGoogle} = useContext(AuthContext)
 
 const navigate = useNavigate()
 
@@ -23,6 +23,18 @@ const navigate = useNavigate()
         console.log(err);
     })
   };
+
+  const handleClickWithGoogle=()=>{
+    loginWithGoogle()
+    .then(res=>{
+        console.log(res.user);
+        
+        navigate('/')
+    })
+    .catch(err=>{
+        console.log(err.message);
+    })
+  }
 
 
 
@@ -68,6 +80,10 @@ const navigate = useNavigate()
             </div>
           </form>
           <p className="m-4">New to this website? please <Link to='/register' className="underline">Register</Link></p>
+
+          <p>
+            <button onClick={handleClickWithGoogle} className="btn btn-accent"> Google</button>
+          </p>
         </div>
       </div>
     </div>
